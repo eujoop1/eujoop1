@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eujoop1</title>
+
+  <link rel="icon" type="image/png" href="./JooPerfil.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  --bg-gif: url("./Jasn1.gif");
+
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 35%),
+    linear-gradient(135deg, #0b0b0f, #11131a, #090909);
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+/* fundo blur */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg-gif);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  filter: blur(12px) scale(1.12) brightness(0.35) contrast(0.75);
+  opacity: 0.35;
+
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.profile-card {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 420px;
+  padding: 32px 24px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.45),
+    0 0 30px rgba(255, 255, 255, 0.04);
+  text-align: center;
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.username {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.bio {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+/* Botões principais */
+/* Botões principais */
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.links a,
+.change-bg-btn {
+  width: 100%;
+  text-decoration: none;
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: 0.25s ease;
+  font-weight: 500;
+  box-shadow: inset 0 0 0 rgba(255,255,255,0);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.links a:hover,
+.change-bg-btn:hover {
+  transform: translateY(-2px) scale(1.01);
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    0 0 18px rgba(255, 255, 255, 0.05);
+}
+
+.link-icon {
+  width: 22px;
+  min-width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+}
+
+.link-icon i {
+  font-size: 1.1rem;
+}
+
+.link-name {
+  font-size: 0.98rem;
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+
+.change-bg-btn {
+  cursor: pointer;
+  outline: none;
+  margin: 0;
+  font-size: 1rem;
+}
+/* Ícones sociais redondos */
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.socials a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: 0.25s ease;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.socials a:hover {
+  transform: scale(1.08);
+  background: rgba(255,255,255,0.12);
+}
+
+.kick-social-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+/* animação do Jason e Dwight no canto */
+.bottom-scene {
+  position: fixed;
+  left: 12px;
+  bottom: -4px;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.character-gif {
+  display: none;
+  height: 170px;
+  width: auto;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+#jasonFreeze {
+  display: none;
+  height: 170px;
+  width: auto;
+}
+
+.dwight-action {
+  margin-left: -20px;
+}
+
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 26px 18px;
+    border-radius: 20px;
+  }
+
+  .username {
+    font-size: 1.35rem;
+  }
+
+  .bio {
+    font-size: 0.9rem;
+  }
+
+  .bottom-scene {
+    left: 4px;
+    bottom: -6px;
+  }
+
+  .character-gif,
+  #jasonFreeze {
+    height: 115px;
+  }
+
+  .dwight-action {
+    margin-left: -18px;
+  }
+}
+</style>
+
+<body>
+
+  <div class="profile-card">
+    <div class="avatar">
+      <img src="./JooPerfil.png" alt="Avatar">
+    </div>
+
+    <h1 class="username">@eujoop1</h1>
+
+    <p class="bio">
+      João | eujoop1 🎮 <br>
+      Lives, gameplay e muita resenha <br>
+      ✦ Ao vivo a partir das 19:30 ✦
+    </p>
+
+<div class="links">
+  <a href="https://livepix.gg/eujoop1" target="_blank" rel="noopener noreferrer">
+    <span class="link-icon">
+      <i class="fa-solid fa-heart"></i>
+    </span>
+    <span class="link-name">Live Pix</span>
+  </a>
+
+  <a href="https://www.twitch.tv/eujoop1" target="_blank" rel="noopener noreferrer">
+    <span class="link-icon">
+      <i class="fa-brands fa-twitch"></i>
+    </span>
+    <span class="link-name">Twitch</span>
+  </a>
+
+  <a href="https://www.tiktok.com/@eujoop1?_r=1&_t=ZS-972OeYSjCiX" target="_blank" rel="noopener noreferrer">
+    <span class="link-icon">
+      <i class="fa-brands fa-tiktok"></i>
+    </span>
+    <span class="link-name">TikTok</span>
+  </a>
+
+  <a href="https://kick.com/eujoop1" target="_blank" rel="noopener noreferrer">
+    <span class="link-icon">
+      <span class="kick-k">K</span>
+    </span>
+    <span class="link-name">Kick</span>
+  </a>
+
+  <a href="https://www.instagram.com/_joaopradi/" target="_blank" rel="noopener noreferrer">
+    <span class="link-icon">
+      <i class="fa-brands fa-instagram"></i>
+    </span>
+    <span class="link-name">Instagram</span>
+  </a>
+
+  <button class="change-bg-btn" id="changeBgBtn">
+    <span class="link-icon">
+      <i class="fa-solid fa-image"></i>
+    </span>
+    <span class="link-name">Mudar fundo</span>
+  </button>
+</div>
+
+
+    <!-- <div class="socials">
+      <a href="https://discord.gg/ChegYMuMDz" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-discord"></i>
+      </a>
+
+      <a href="https://www.tiktok.com/@eujoop1?_r=1&_t=ZS-972OeYSjCiX" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-tiktok"></i>
+      </a>
+
+      <a href="https://www.twitch.tv/eujoop1" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-twitch"></i>
+      </a>
+
+      <a href="https://www.instagram.com/_joaopradi/" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+
+      <a href="https://kick.com/eujoop1" target="_blank" rel="noopener noreferrer">
+        <img src="./kick.png" alt="Kick" class="kick-social-icon">
+      </a>
+    </div> -->
+  </div>
+
+  <!-- Animações no canto inferior esquerdo -->
+  <div class="bottom-scene">
+    <img id="jasonAction" class="character-gif jason-action" alt="Jason">
+    <canvas id="jasonFreeze" class="character-gif jason-action"></canvas>
+    <img id="dwightAction" class="character-gif dwight-action" alt="Dwight">
+  </div>
+
+<script>
+  const fundos = [
+    'url("./Jasn1.gif")',
+    'url("./Jasn2.gif")'
+  ];
+
+  let fundoAtual = 0;
+
+  const btnFundo = document.getElementById("changeBgBtn");
+
+  btnFundo.addEventListener("click", () => {
+    fundoAtual = (fundoAtual + 1) % fundos.length;
+    document.body.style.setProperty("--bg-gif", fundos[fundoAtual]);
+  });
+
+  const jasonAction = document.getElementById("jasonAction");
+  const jasonFreeze = document.getElementById("jasonFreeze");
+  const dwightAction = document.getElementById("dwightAction");
+
+  const GIF_APARICAO = "./JasonAparicao.gif";
+  const GIF_JOGANDO = "./GifJogandoArpao2.gif";
+  const GIF_DWIGHT = "./DwightArpao2.gif";
+
+  /*
+    Ajuste esses tempos conforme a duração real dos seus GIFs.
+
+    Exemplo:
+    2500 = 2.5 segundos
+    3000 = 3 segundos
+  */
+  const DURACAO_APARICAO = 1000;
+  const DURACAO_JOGANDO = 1000;
+  const DURACAO_DWIGHT = 1100;
+  const PAUSA_ANTES_REINICIAR = 900;
+
+  function tocarGif(img, src) {
+    img.style.display = "block";
+
+    // força o GIF a reiniciar do começo
+    img.src = "";
+    setTimeout(() => {
+      img.src = src + "?v=" + Date.now();
+    }, 30);
+  }
+
+  function esconderElemento(el) {
+    el.style.display = "none";
+
+    if (el.tagName === "IMG") {
+      el.removeAttribute("src");
+    }
+  }
+
+  function congelarGif(img, canvas) {
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    img.style.display = "none";
+    canvas.style.display = "block";
+  }
+
+  function iniciarCena() {
+    esconderElemento(dwightAction);
+    esconderElemento(jasonFreeze);
+
+    // 1. Jason aparece
+    tocarGif(jasonAction, GIF_APARICAO);
+
+    setTimeout(() => {
+      // 2. Jason joga o arpão
+      tocarGif(jasonAction, GIF_JOGANDO);
+
+      setTimeout(() => {
+        // 3. Jason congela no último momento do GIF
+        congelarGif(jasonAction, jasonFreeze);
+
+        // 4. Dwight toca logo ao lado
+        tocarGif(dwightAction, GIF_DWIGHT);
+
+        setTimeout(() => {
+          // 5. Reinicia tudo depois que Dwight terminar
+          esconderElemento(dwightAction);
+          esconderElemento(jasonFreeze);
+
+          setTimeout(() => {
+            iniciarCena();
+          }, PAUSA_ANTES_REINICIAR);
+
+        }, DURACAO_DWIGHT);
+
+      }, DURACAO_JOGANDO);
+
+    }, DURACAO_APARICAO);
+  }
+
+  window.addEventListener("load", iniciarCena);
+</script>
+
+</body>
+</html>
